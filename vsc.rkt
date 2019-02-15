@@ -14,19 +14,9 @@
   (make-font #:face "Flanders Art Sans,Medium"
 	     #:size 32))
 
-(define flanders-art-regular-bold
-  (make-font #:face "FlandersArtSans-Regular"
-	     #:size 32
-	     #:weight 'ultraheavy))
-
 (define flanders-art-small
   (make-font #:face "FlandersArtSans-Regular"
 	     #:size 28))
-
-
-(define helvetica
-  (make-font #:face "Helvetica,Regular"
-	     #:size 32))
 
 
 (define vsc-orange
@@ -34,11 +24,13 @@
 (define vsc-dark
   (make-color 78 88 101))
 (define vsc-gray
+  (make-color 119 132 150))
+(define vsc-bright
   (make-color 246 246 246))
 (define vsc-background
   (make-color 242 243 252))
 
-(define (vsc-logo [color vsc-gray])
+(define (vsc-logo [color vsc-bright])
   (colorize
    (vr-append
     (clip-descent (text "VLAAMS" flanders-art-light))
@@ -80,7 +72,7 @@
 
 (current-titlet
  (lambda (s)
-   (colorize (text s flanders-art-medium 50) vsc-dark)))
+   (colorize (text s flanders-art-medium) vsc-dark)))
 
 (current-slide-assembler
  (lambda (title v-sep content)
