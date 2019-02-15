@@ -1,6 +1,6 @@
 #lang slideshow
 
-(require pict racket/draw ppict/2)
+(require pict slideshow/text racket/draw)
 
 (define flanders-art
   (make-font #:face "FlandersArtSans-Regular"
@@ -18,6 +18,9 @@
   (make-font #:face "FlandersArtSans-Regular"
 	     #:size 28))
 
+(define inconsolata
+  (make-font #:face "Inconsolata"
+	     #:size 28))
 
 (define vsc-orange
   (make-color 219 108 48))
@@ -66,6 +69,10 @@
 				 (rectangle 60 60) #:mode 'preserve/max)
 		   0 0 20 8))
 	   (- margin))))
+
+(define (prompt txt)
+  (colorize (hc-append (with-font inconsolata (bt "$ "))
+		       (with-font inconsolata (t txt))) vsc-gray))
 
 (define (mysub s . rest)
   (subitem s rest #:bullet bullet))
@@ -117,5 +124,22 @@
 
    (para "or in your browser:")
    (mysub "www.tutorialspoint.com/unix_terminal_online.php"))
+
+
+  (slide
+   #:title "Text formatting"
+
+   (para "Do any of these" (it "text formatting") "functions even work?")
+   (para "Let's see about inline" (with-font inconsolata (t "fixed-width text"))
+	 "probably fails?  No, seems like it works and we can describe"
+	 (colorize  (with-font inconsolata (bt "$")) vsc-gray)
+	 (colorize  (with-font inconsolata (t "commands")) vsc-gray)
+	 "like this.")
+   (para "Or, abstracting it in a function:"
+	 (prompt "cat myfile.txt") ", like that.")
+   (with-font inconsolata (para "fixed-width text"))
+   (with-font inconsolata (t "fixed-width text"))
+   )
+
 
 )
