@@ -97,13 +97,6 @@
   (current-main-font flanders-art-small)
   
   (slide
-   #:title "My first VSC slideshow"
-   (para "This uses the fancy slide-assembler method."))
-
-  (slide
-   (para "This one doesn't have a title."))
-
-  (slide
    #:title "Goals of this course"
 
    (para "The VSC clusters, like most HPC clusters worldwide, use Linux-based operating systems.")
@@ -118,105 +111,6 @@
 
    (para "Scripts: store a series of commands in a file, so we can (re-)use them later."))
   
-  (slide
-   #:title "Linux-like environments"
-
-   (para "Microsoft Windows")
-   (mysub "Cygwin: www.cygwin.com")
-   (mysub "Microsoft Subsystem for Linux (Windows 10, 64bit version)")
-
-   (para "macOS")
-   (mysub "Terminal app (or iTerm2)")
-   (mysub "For identical commands: install GNU tools using MacPorts "
-	    "(macports.org) or Homebrew (brew.sh)")
-
-   (para "or in your browser:")
-   (mysub "www.tutorialspoint.com/unix_terminal_online.php"))
-
-  ;; Try if it looks better with Helvetica
-  (current-main-font helvetica)
-
-  (slide
-   #:title "Goals of this course"
-
-   (para "The VSC clusters, like most HPC clusters worldwide, use Linux-based operating systems.")
-
-   (para "Basic concepts:")
-   (mysub "Files and the file system")
-   (mysub "Processes, threads")
-   
-   (para "Using the command-line")
-   (mysub "Starting (and stopping!) programs")
-   (mysub "Files and directories: find, read, create, write, move, copy, delete, ...")
-
-   (para "Scripts: store a series of commands in a file, so we can (re-)use them later."))
-
-  (slide
-   #:title "Linux-like environments"
-
-   (para "Microsoft Windows")
-   (mysub "Cygwin: www.cygwin.com")
-   (mysub "Microsoft Subsystem for Linux (Windows 10, 64bit version)")
-
-   (para "macOS")
-   (mysub "Terminal app (or iTerm2)")
-   (mysub "For identical commands: install GNU tools using MacPorts "
-	    "(macports.org) or Homebrew (brew.sh)")
-
-   (para "or in your browser:")
-   (mysub "www.tutorialspoint.com/unix_terminal_online.php"))
-
-  (current-main-font (make-font #:face "Gill Sans, Regular"
-				#:size 28))
-
-  (slide
-   #:title "Goals of this course"
-
-   (para "The VSC clusters, like most HPC clusters worldwide, use Linux-based operating systems.")
-
-   (para "Basic concepts:")
-   (mysub "Files and the file system")
-   (mysub "Processes, threads")
-   
-   (para "Using the command-line")
-   (mysub "Starting (and stopping!) programs")
-   (mysub "Files and directories: find, read, create, write, move, copy, delete, ...")
-
-   (para "Scripts: store a series of commands in a file, so we can (re-)use them later."))
-
-  (slide
-   #:title "Linux-like environments"
-
-   (para "Microsoft Windows")
-   (mysub "Cygwin: www.cygwin.com")
-   (mysub "Microsoft Subsystem for Linux (Windows 10, 64bit version)")
-
-   (para "macOS")
-   (mysub "Terminal app (or iTerm2)")
-   (mysub "For identical commands: install GNU tools using MacPorts "
-	    "(macports.org) or Homebrew (brew.sh)")
-
-   (para "or in your browser:")
-   (mysub "www.tutorialspoint.com/unix_terminal_online.php"))
-
-  (current-main-font (make-font #:face "Flanders Art Sans, Light"
-				#:size 28))
-
-  (slide
-   #:title "Goals of this course"
-
-   (para "The VSC clusters, like most HPC clusters worldwide, use Linux-based operating systems.")
-
-   (para "Basic concepts:")
-   (mysub "Files and the file system")
-   (mysub "Processes, threads")
-   
-   (para "Using the command-line")
-   (mysub "Starting (and stopping!) programs")
-   (mysub "Files and directories: find, read, create, write, move, copy, delete, ...")
-
-   (para "Scripts: store a series of commands in a file, so we can (re-)use them later."))
-
   (slide
    #:title "Linux-like environments"
 
