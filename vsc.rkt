@@ -141,5 +141,27 @@
    (with-font inconsolata (t "fixed-width text"))
    )
 
+  (define script06 "#!/bin/bash
+
+count=1
+while [ $count -le 5 ]; do
+  echo $count
+  count=$((count + 1))
+done
+echo \"value of count: $count\"
+
+echo \"Finished.\"")
+
+  (slide
+   #:title "Displaying scripts"
+   (para
+    (let ([script (with-font inconsolata
+			     (apply vl-append (map t (string-split script06 "\n"))))])
+      (lt-superimpose
+       (filled-rectangle (+ (* 2 margin) (pict-width script))
+			 (+ (* 2 margin) (pict-height script))
+			 #:draw-border? #f #:color vsc-dark)
+       (inset (colorize script vsc-bright) margin)))))
+
 
 )
