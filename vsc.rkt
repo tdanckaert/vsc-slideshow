@@ -2,10 +2,6 @@
 
 (require pict slideshow/text racket/draw)
 
-(define flanders-art
-  (make-font #:face "FlandersArtSans-Regular"
-	     #:size 32))
-
 (define flanders-art-light
   (make-font #:face "Flanders Art Sans,Light"
 	     #:size 32))
@@ -15,7 +11,7 @@
 	     #:size 32))
 
 (define flanders-art-small
-  (make-font #:face "FlandersArtSans-Regular"
+  (make-font #:face "Flanders Art Sans"
 	     #:size 28))
 
 (define inconsolata
@@ -129,9 +125,9 @@
   (slide
    #:title "Text formatting"
 
-   (para "Do any of these" (it "text formatting") "functions even work?")
-   (para "Let's see about inline" (with-font inconsolata (t "fixed-width text"))
-	 "probably fails?  No, seems like it works and we can describe"
+   (para "Do any of these" (it "text formatting") (bt "functions") " even work?")
+   (para "Let's see about inline '" (with-font inconsolata (t "fixed-width text"))
+	 "' probably fails?  No, seems like it works and we can describe"
 	 (colorize  (with-font inconsolata (bt "$")) vsc-gray)
 	 (colorize  (with-font inconsolata (t "commands")) vsc-gray)
 	 "like this.")
