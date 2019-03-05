@@ -5,14 +5,14 @@
 (define flanders-art-light
   (make-font #:face "Flanders Art Sans"
 	     #:weight 'light
-	     #:size 32))
+	     #:size 28))
 
 (define flanders-art-medium
   (make-font #:face "Flanders Art Sans"
 	     #:weight 'medium
-	     #:size 32))
+	     #:size 28))
 
-(define flanders-art-small
+(define flanders-art
   (make-font #:face "Flanders Art Sans"
 	     #:size 28))
 
@@ -91,7 +91,7 @@
 (current-para-width (* 7/8 client-w))
 
 (begin
-  (current-main-font flanders-art-small)
+  (current-main-font flanders-art)
   
   (slide
    #:title "Goals of this course"
