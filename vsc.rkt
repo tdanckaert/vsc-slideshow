@@ -3,11 +3,13 @@
 (require pict slideshow/text racket/draw)
 
 (define flanders-art-light
-  (make-font #:face "Flanders Art Sans,Light"
+  (make-font #:face "Flanders Art Sans"
+	     #:weight 'light
 	     #:size 32))
 
 (define flanders-art-medium
-  (make-font #:face "Flanders Art Sans,Medium"
+  (make-font #:face "Flanders Art Sans"
+	     #:weight 'medium
 	     #:size 32))
 
 (define flanders-art-small
