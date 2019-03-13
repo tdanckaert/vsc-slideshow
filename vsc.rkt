@@ -1,6 +1,9 @@
 #lang slideshow
 
-(require pict slideshow/text racket/draw)
+(require pict rsvg slideshow/text racket/draw)
+
+(define vsc-lion
+  (svg-file->pict "/Users/tdanckaert/Documents/VSC-slideshow/ORG_Block_logo.svg"))
 
 (define flanders-art-light
   (make-font #:face "Flanders Art Sans"
@@ -16,6 +19,10 @@
   (make-font #:face "Flanders Art Sans"
 	     #:size 28))
 
+(define flanders-art-big
+  (make-font #:face "Flanders Art Sans"
+	     #:size 80))
+
 (define inconsolata
   (make-font #:face "Inconsolata"
 	     #:size 28))
@@ -26,6 +33,8 @@
   (make-color 78 88 101))
 (define vsc-gray
   (make-color 119 132 150))
+(define vsc-brightgray
+  (make-color 204 209 215))
 (define vsc-bright
   (make-color 246 246 246))
 (define vsc-background
@@ -57,6 +66,21 @@
 	(send dc set-pen old-pen))
       w h))
 
+(define (bunch-of-lines w h)
+  (dc (lambda (dc dx dy)
+	(define old-brush (send dc get-brush))
+	(define old-pen (send dc get-pen))
+		(send dc set-brush
+	      (new brush% [style 'transparent]))
+	(send dc set-pen (new pen% [color vsc-brightgray] [style 'solid]))
+	(define path (new dc-path%))
+	(send path move-to (* w 0.35) 0)
+	(send path line-to (* w 0.8) h)
+	(send dc draw-path path dx dy)
+	(send dc set-brush old-brush)
+	(send dc set-pen old-pen))
+      w h))
+
 (define vsc-bg
   (let ([w (+ (* 2 margin) client-w)]
 	[h (+ (* 2 margin) client-h)])
@@ -67,6 +91,26 @@
 				 (rectangle 60 60) #:mode 'preserve/max)
 		   0 0 20 8))
 	   (- margin))))
+
+(define vsc-title
+  (let ([w (+ (* 2 margin) client-w)]
+	[h (+ (* 2 margin) client-h)])
+    (inset
+     (rt-superimpose
+      (rb-superimpose
+       (lb-superimpose
+	(filled-rectangle w h #:draw-border? #f #:color vsc-background)
+	(bunch-of-lines w h)
+	(trapeze w 160)
+	(inset (scale-to-fit (vsc-logo)
+			     (rectangle 70 70) #:mode 'preserve/max)
+	       60 0 30 8))
+       (inset (colorize (text "vscentrum.be" flanders-art)
+			vsc-bright)
+	      0 0 20 30))
+      (inset vsc-lion 0 30 0 0))
+
+     (- margin))))
 
 (define (prompt txt)
   (colorize (hc-append (with-font inconsolata (bt "$ "))
@@ -92,7 +136,25 @@
 
 (begin
   (current-main-font flanders-art)
-  
+
+  (define old-slide-assembler (current-slide-assembler))
+
+  (current-slide-assembler
+   (lambda (title v-sep content)
+     (let ([content (colorize content vsc-dark)])
+       (lt-superimpose
+	vsc-title
+	(if title
+	    (vc-append v-sep (titlet title) content)
+	    content)))))
+
+  (slide
+   (with-font flanders-art-big
+	      (para (bt "Presentation title")))
+   (para "subtitle?"))
+
+  (current-slide-assembler old-slide-assembler)
+
   (slide
    #:title "Goals of this course"
 
