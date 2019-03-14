@@ -226,8 +226,11 @@ echo \"Finished.\"")
   (slide
    #:title "Displaying scripts"
    (para
-    (let ([script (with-font inconsolata
-			     (apply vl-append (map t (string-split script06 "\n"))))])
+    (let ([script
+	   (vr-append
+	    (colorize (t "script06.sh") vsc-orange)
+	    (with-font inconsolata
+		       (apply vl-append (map t (string-split script06 "\n")))))])
       (lt-superimpose
        (filled-rectangle (+ (* 2 margin) (pict-width script))
 			 (+ (* 2 margin) (pict-height script))
