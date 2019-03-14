@@ -110,7 +110,7 @@
      (rt-superimpose
       (rb-superimpose
        (lb-superimpose
-	(filled-rectangle w h #:draw-border? #f #:color vsc-background)
+	(filled-rectangle w h #:draw-border? #f #:color vsc-background-blue)
 	(bunch-of-lines w h)
 	(trapeze w 160)
 	(inset (scale-to-fit (vsc-logo)
