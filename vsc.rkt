@@ -27,18 +27,29 @@
   (make-font #:face "Inconsolata"
 	     #:size 28))
 
-(define vsc-orange
-  (make-color 219 108 48))
-(define vsc-dark
-  (make-color 78 88 101))
-(define vsc-gray
-  (make-color 119 132 150))
-(define vsc-brightgray
-  (make-color 204 209 215))
+(define vsc-background-blue
+  (make-color 242 243 252))
+(define vsc-lightblue
+  (make-color 146 156 225))
+
+(define vsc-slate
+  (make-color 51 54 57))
+
 (define vsc-bright
   (make-color 246 246 246))
-(define vsc-background
-  (make-color 242 243 252))
+
+(define vsc-gray1
+  (make-color 238 239 241))
+(define vsc-gray3
+  (make-color 204 209 215))
+(define vsc-gray
+  (make-color 119 132 150))
+(define vsc-darkgray
+  (make-color 78 88 101))
+
+(define vsc-orange
+  (make-color 219 108 48))
+
 
 (define (vsc-logo [color vsc-bright])
   (colorize
@@ -72,7 +83,7 @@
 	(define old-pen (send dc get-pen))
 		(send dc set-brush
 	      (new brush% [style 'transparent]))
-	(send dc set-pen (new pen% [color vsc-brightgray] [style 'solid]))
+	(send dc set-pen (new pen% [color vsc-gray3] [style 'solid]))
 	(define path (new dc-path%))
 	(send path move-to (* w 0.35) 0)
 	(send path line-to (* w 0.8) h)
@@ -85,7 +96,7 @@
   (let ([w (+ (* 2 margin) client-w)]
 	[h (+ (* 2 margin) client-h)])
     (inset (rb-superimpose
-	    (filled-rectangle w h #:draw-border? #f #:color vsc-background)
+	    (filled-rectangle w h #:draw-border? #f #:color vsc-background-blue)
 	    (trapeze w 80)
 	    (inset (scale-to-fit (vsc-logo)
 				 (rectangle 60 60) #:mode 'preserve/max)
@@ -121,11 +132,11 @@
 
 (current-titlet
  (lambda (s)
-   (colorize (text s flanders-art-medium) vsc-dark)))
+   (colorize (text s flanders-art-medium) vsc-darkgray)))
 
 (current-slide-assembler
  (lambda (title v-sep content)
-   (let ([content (colorize content vsc-dark)])
+   (let ([content (colorize content vsc-darkgray)])
      (lt-superimpose
       vsc-bg
       (if title
@@ -141,7 +152,7 @@
 
   (current-slide-assembler
    (lambda (title v-sep content)
-     (let ([content (colorize content vsc-dark)])
+     (let ([content (colorize content vsc-slate)])
        (lt-superimpose
 	vsc-title
 	(if title
@@ -220,8 +231,5 @@ echo \"Finished.\"")
       (lt-superimpose
        (filled-rectangle (+ (* 2 margin) (pict-width script))
 			 (+ (* 2 margin) (pict-height script))
-			 #:draw-border? #f #:color vsc-dark)
-       (inset (colorize script vsc-bright) margin)))))
-
-
-)
+			 #:draw-border? #f #:color vsc-darkgray)
+       (inset (colorize script vsc-bright) margin))))))
