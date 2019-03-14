@@ -77,6 +77,24 @@
 	(send dc set-pen old-pen))
       w h))
 
+(define (flipped-trapeze w h)
+  (dc (lambda (dc dx dy)
+	(define old-brush (send dc get-brush))
+	(define old-pen (send dc get-pen))
+	(send dc set-brush
+	      (new brush% [style 'solid] [color vsc-gray1]))
+	(send dc set-pen (new pen% [style 'transparent]))
+	(define path (new dc-path%))
+	(send path move-to 0 0)
+	(send path line-to w (/ h 2))
+	(send path line-to w h)
+	(send path line-to 0 h)
+	(send path close)
+	(send dc draw-path path dx dy)
+	(send dc set-brush old-brush)
+	(send dc set-pen old-pen))
+      w h))
+
 (define (bunch-of-lines w h)
   (dc (lambda (dc dx dy)
 	(define old-brush (send dc get-brush))
@@ -112,12 +130,16 @@
        (lb-superimpose
 	(filled-rectangle w h #:draw-border? #f #:color vsc-background-blue)
 	(bunch-of-lines w h)
-	(trapeze w 160)
+	(flipped-trapeze (* 0.95 w) 180)
+	(trapeze w 180)
 	(inset (scale-to-fit (vsc-logo)
 			     (rectangle 70 70) #:mode 'preserve/max)
 	       60 0 30 8))
-       (inset (colorize (text "vscentrum.be" flanders-art)
-			vsc-bright)
+       (inset (colorize
+	       (hc-append
+		(with-font flanders-art-medium (t "vscentrum"))
+		(with-font flanders-art (t ".be")))
+	       vsc-bright)
 	      0 0 20 30))
       (inset vsc-lion 0 30 0 0))
 
@@ -160,9 +182,16 @@
 	    content)))))
 
   (slide
-   (with-font flanders-art-big
-	      (para (bt "Presentation title")))
-   (para "subtitle?"))
+   (para #:align 'right
+	 (hc-append
+	  (vr-append
+	   (vl-append
+	    (with-font flanders-art-big
+		       (bold (t "Presentation Title")))
+	    (t "a longer subtitle"))
+	   (colorize (t "Author Name") vsc-darkgray)
+	   (colorize (t "Another Author") vsc-darkgray))
+	  (ghost (filled-rectangle (* 0.3 client-w) 10)))))
 
   (current-slide-assembler old-slide-assembler)
 
