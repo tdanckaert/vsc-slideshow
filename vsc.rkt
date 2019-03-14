@@ -3,7 +3,7 @@
 (require pict rsvg slideshow/text racket/draw)
 
 (define vsc-lion
-  (svg-file->pict "/Users/tdanckaert/Documents/VSC-slideshow/ORG_Block_logo.svg"))
+  (svg-file->pict "/Users/tdanckaert/Documents/VSC-slideshow/edit_block_logo.svg"))
 
 (define flanders-art-light
   (make-font #:face "Flanders Art Sans"
