@@ -23,6 +23,15 @@
   (make-font #:face "Flanders Art Sans"
 	     #:size 80))
 
+(define flanders-art-logo
+  (make-font #:face "Flanders Art Sans"
+	     #:size 17))
+
+(define flanders-art-medium-logo
+  (make-font #:face "Flanders Art Sans"
+	     #:weight 'medium
+	     #:size 17))
+
 (define inconsolata
   (make-font #:face "Inconsolata"
 	     #:size 28))
@@ -53,10 +62,12 @@
 
 (define (vsc-logo [color vsc-bright])
   (colorize
-   (vr-append
-    (clip-descent (text "VLAAMS" flanders-art-light))
-    (clip-descent (text "SUPERCOMPUTER"  flanders-art-medium))
-    (text "CENTRUM" flanders-art-medium))
+   (vl-append
+    (clip-descent (text "VLAAMS" flanders-art-logo))
+    (ghost (filled-rectangle 10 3))
+    (clip-descent (text "SUPERCOMPUTER"  flanders-art-medium-logo))
+    (ghost (filled-rectangle 10 3))
+    (text "CENTRUM" flanders-art-medium-logo))
    color))
 
 (define (trapeze w h)
@@ -137,8 +148,8 @@
 	       60 0 30 8))
        (inset (colorize
 	       (hc-append
-		(with-font flanders-art-medium (t "vscentrum"))
-		(with-font flanders-art (t ".be")))
+		(with-font flanders-art-medium-logo (t "vscentrum"))
+		(with-font flanders-art-logo (t ".be")))
 	       vsc-bright)
 	      0 0 20 30))
       (inset vsc-lion 0 30 0 0))
