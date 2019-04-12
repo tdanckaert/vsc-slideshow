@@ -2,6 +2,14 @@
 
 (require pict rsvg slideshow/text racket/draw)
 
+(provide title-slide
+	 mysub
+	 prompt
+	 show-script
+	 inconsolata
+	 vsc-gray
+	 vsc-orange)
+
 (define vsc-lion
   (svg-file->pict "/Users/tdanckaert/Documents/VSC-slideshow/edit_block_logo.svg"))
 
@@ -177,102 +185,43 @@
 	  content)))))
 
 (current-para-width (* 7/8 client-w))
+(current-main-font flanders-art)
 
-(begin
-  (current-main-font flanders-art)
+(define (title-assembler title v-sep content)
+  (let ([content (colorize content vsc-slate)])
+    (lt-superimpose
+     vsc-title
+     (if title
+	 (vc-append v-sep (titlet title) content)
+	 content))))
 
-  (define old-slide-assembler (current-slide-assembler))
+(define (title-slide title authors)
+  (let ((old-slide-assembler (current-slide-assembler)))
+    (current-slide-assembler title-assembler)
 
-  (current-slide-assembler
-   (lambda (title v-sep content)
-     (let ([content (colorize content vsc-slate)])
-       (lt-superimpose
-	vsc-title
-	(if title
-	    (vc-append v-sep (titlet title) content)
-	    content)))))
+    (slide
+     (para #:align 'right
+	   (hc-append
+	    (apply
+	     vr-append
+	     (cons
+	      (vl-append
+	       (with-font flanders-art-big (bold (t title)))
+	       (t "a longer subtitle"))
+	      (map (lambda (a) (colorize (t a) vsc-darkgray))
+		   authors)))
+	    (ghost (filled-rectangle (* 0.2 client-w) 10)))))
 
-  (slide
-   (para #:align 'right
-	 (hc-append
-	  (vr-append
-	   (vl-append
-	    (with-font flanders-art-big
-		       (bold (t "Presentation Title")))
-	    (t "a longer subtitle"))
-	   (colorize (t "Author Name") vsc-darkgray)
-	   (colorize (t "Another Author") vsc-darkgray))
-	  (ghost (filled-rectangle (* 0.3 client-w) 10)))))
+    (current-slide-assembler old-slide-assembler)))
 
-  (current-slide-assembler old-slide-assembler)
-
-  (slide
-   #:title "Goals of this course"
-
-   (para "The VSC clusters, like most HPC clusters worldwide, use Linux-based operating systems.")
-
-   (para "Basic concepts:")
-   (mysub "Files and the file system")
-   (mysub "Processes, threads")
-   
-   (para "Using the command-line")
-   (mysub "Starting (and stopping!) programs")
-   (mysub "Files and directories: find, read, create, write, move, copy, delete, ...")
-
-   (para "Scripts: store a series of commands in a file, so we can (re-)use them later."))
-  
-  (slide
-   #:title "Linux-like environments"
-
-   (para "Microsoft Windows")
-   (mysub "Cygwin: www.cygwin.com")
-   (mysub "Microsoft Subsystem for Linux (Windows 10, 64bit version)")
-
-   (para "macOS")
-   (mysub "Terminal app (or iTerm2)")
-   (mysub "For identical commands: install GNU tools using MacPorts "
-	    "(macports.org) or Homebrew (brew.sh)")
-
-   (para "or in your browser:")
-   (mysub "www.tutorialspoint.com/unix_terminal_online.php"))
-
-
-  (slide
-   #:title "Text formatting"
-
-   (para "Do any of these" (it "text formatting") (bt "functions") " even work?")
-   (para "Let's see about inline '" (with-font inconsolata (t "fixed-width text"))
-	 "' probably fails?  No, seems like it works and we can describe"
-	 (colorize  (with-font inconsolata (bt "$")) vsc-gray)
-	 (colorize  (with-font inconsolata (t "commands")) vsc-gray)
-	 "like this.")
-   (para "Or, abstracting it in a function:"
-	 (prompt "cat myfile.txt") ", like that.")
-   (with-font inconsolata (para "fixed-width text"))
-   (with-font inconsolata (t "fixed-width text"))
-   )
-
-  (define script06 "#!/bin/bash
-
-count=1
-while [ $count -le 5 ]; do
-  echo $count
-  count=$((count + 1))
-done
-echo \"value of count: $count\"
-
-echo \"Finished.\"")
-
-  (slide
-   #:title "Displaying scripts"
-   (para
-    (let ([script
+(define (show-script content title)
+  (let ([script
 	   (vr-append
-	    (colorize (t "script06.sh") vsc-orange)
+	    (colorize (t title) vsc-orange)
 	    (with-font inconsolata
-		       (apply vl-append (map t (string-split script06 "\n")))))])
+		       (apply vl-append (map t (string-split content "\n")))))])
       (lt-superimpose
        (filled-rectangle (+ (* 2 margin) (pict-width script))
 			 (+ (* 2 margin) (pict-height script))
 			 #:draw-border? #f #:color vsc-darkgray)
-       (inset (colorize script vsc-bright) margin))))))
+       (inset (colorize script vsc-bright) margin))))
