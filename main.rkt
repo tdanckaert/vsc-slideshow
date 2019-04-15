@@ -5,6 +5,7 @@
 (provide title-slide
 	 item
 	 prompt
+	 key
 	 show-script
 	 inconsolata
 	 vsc-gray
@@ -176,6 +177,17 @@
      (filled-rounded-rectangle (+ (* 2 margin) (pict-width text))
 			       (+ (* 2 margin) (pict-height text))
 			       #:color vsc-darkgray))))
+
+(define (key txt)
+  (let ((text (t txt))
+	(margin 2))
+    (pin-under
+     (inset (colorize text vsc-bright) margin 0)
+     0 0
+     (filled-rounded-rectangle (+ (* 2 margin) (pict-width text))
+			       (+ (* 2 margin) (pict-height text))
+			       #:color vsc-orange
+			       #:draw-border? #f))))
 
 (define (item s . rest)
   (subitem s rest #:bullet bullet))
