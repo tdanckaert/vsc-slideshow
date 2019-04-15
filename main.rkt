@@ -197,21 +197,24 @@
 	 (vc-append v-sep (titlet title) content)
 	 content))))
 
-(define (title-slide title authors)
-  (let ((old-slide-assembler (current-slide-assembler)))
+(define (title-slide #:title title
+		     #:authors authors
+		     #:subtitle [subtitle #f])
+  (let ((old-slide-assembler (current-slide-assembler))
+	(boldtitle (with-font flanders-art-big (bold (t title)))))
     (current-slide-assembler title-assembler)
 
     (slide
      (para #:align 'right
 	   (hc-append
-	    (apply
-	     vr-append
-	     (cons
-	      (vl-append
-	       (with-font flanders-art-big (bold (t title)))
-	       (t "a longer subtitle"))
-	      (map (lambda (a) (colorize (t a) vsc-darkgray))
-		   authors)))
+	    (colorize
+	     (apply
+	      vr-append
+	      (cons (if subtitle
+			(vl-append boldtitle (t subtitle))
+			boldtitle)
+		    (map t authors)))
+	     vsc-darkgray)
 	    (ghost (filled-rectangle (* 0.2 client-w) 10)))))
 
     (current-slide-assembler old-slide-assembler)))
