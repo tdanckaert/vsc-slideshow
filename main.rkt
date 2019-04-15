@@ -167,8 +167,15 @@
      (- margin))))
 
 (define (prompt txt)
-  (colorize (hc-append (with-font inconsolata (bt "$ "))
-		       (with-font inconsolata (t txt))) vsc-gray))
+  (let ((text (with-font inconsolata
+			 (hc-append (t "$ ") (t txt))))
+	(margin 2))
+    (pin-under
+     (colorize text vsc-bright)
+     (- margin) (- margin)
+     (filled-rounded-rectangle (+ (* 2 margin) (pict-width text))
+			       (+ (* 2 margin) (pict-height text))
+			       #:color vsc-darkgray))))
 
 (define (item s . rest)
   (subitem s rest #:bullet bullet))
