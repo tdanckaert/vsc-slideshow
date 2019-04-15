@@ -3,7 +3,7 @@
 (require pict rsvg slideshow/text racket/draw racket/runtime-path)
 
 (provide title-slide
-	 mysub
+	 item
 	 prompt
 	 show-script
 	 inconsolata
@@ -170,7 +170,7 @@
   (colorize (hc-append (with-font inconsolata (bt "$ "))
 		       (with-font inconsolata (t txt))) vsc-gray))
 
-(define (mysub s . rest)
+(define (item s . rest)
   (subitem s rest #:bullet bullet))
 
 (current-titlet
