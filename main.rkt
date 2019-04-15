@@ -168,12 +168,11 @@
      (- margin))))
 
 (define (prompt txt)
-  (let ((text (with-font inconsolata
-			 (hc-append (t "$ ") (t txt))))
+  (let ((text (with-font inconsolata (t txt)))
 	(margin 2))
     (pin-under
-     (colorize text vsc-bright)
-     (- margin) (- margin)
+     (inset (colorize text vsc-bright) margin 0)
+     0 0
      (filled-rounded-rectangle (+ (* 2 margin) (pict-width text))
 			       (+ (* 2 margin) (pict-height text))
 			       #:color vsc-darkgray))))
