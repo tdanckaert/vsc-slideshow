@@ -206,6 +206,8 @@
 
 (current-para-width (* 7/8 client-w))
 (current-main-font flanders-art)
+(current-page-number-color vsc-bright)
+(current-page-number-font flanders-art-logo)
 
 (define (title-assembler title v-sep content)
   (let ([content (colorize content vsc-slate)])
