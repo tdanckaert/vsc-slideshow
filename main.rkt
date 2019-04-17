@@ -3,7 +3,7 @@
 (require pict rsvg slideshow/text racket/draw racket/runtime-path)
 
 (provide title-slide
-	 item
+	 indent
 	 prompt
 	 key
 	 show-script
@@ -188,8 +188,16 @@
 			       #:color vsc-orange
 			       #:draw-border? #f))))
 
-(define (item s . rest)
-  (subitem s rest #:bullet bullet))
+(define (indent s . rest)
+  (let ((old-para-width (current-para-width)))
+    (current-para-width (- old-para-width (* 2 (current-gap-size))))
+    (let ((indent-par (para s rest)))
+      (current-para-width old-para-width)
+      (inset indent-par
+	     (* 2 (current-gap-size))
+	     (/ (current-gap-size) 4)
+	     0
+	     (/ (current-gap-size) 4)))))
 
 (current-titlet
  (lambda (s)
