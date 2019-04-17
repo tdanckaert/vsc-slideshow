@@ -216,6 +216,17 @@
 (current-main-font flanders-art)
 (current-page-number-color vsc-bright)
 (current-page-number-font flanders-art-logo)
+(current-page-number-adjust
+ ;; Center page number by appending a number of spaces that fills half
+ ;; the page width...
+ (lambda (num string)
+   (let ([space-width (pict-width (text " " flanders-art-logo))]
+	 [half-page-width (+ margin (/ client-w 2))])
+     (string-append
+      string
+      (make-string
+       (inexact->exact (round (/ half-page-width space-width)))
+       #\space)))))
 
 (define (title-assembler title v-sep content)
   (let ([content (colorize content vsc-slate)])
