@@ -123,7 +123,7 @@
 	(define old-pen (send dc get-pen))
 		(send dc set-brush
 	      (new brush% [style 'transparent]))
-	(send dc set-pen (new pen% [color vsc-gray3] [style 'solid]))
+	(send dc set-pen (new pen% [color vsc-gray] [style 'solid]))
 	(define path (new dc-path%))
 	(send path move-to (* w 0.35) 0)
 	(send path line-to (* w 0.8) h)
@@ -167,15 +167,16 @@
 
      (- margin))))
 
-(define (prompt txt)
-  (let ((text (with-font inconsolata (t txt)))
+(define (prompt . txt)
+  (let ((text (with-font inconsolata (para #:fill? #f txt)))
 	(margin 2))
     (pin-under
-     (inset (colorize text vsc-bright) margin 0)
+     (inset (colorize text vsc-slate) margin 0)
      0 0
      (filled-rounded-rectangle (+ (* 2 margin) (pict-width text))
 			       (+ (* 2 margin) (pict-height text))
-			       #:color vsc-darkgray))))
+			       5
+			       #:color vsc-gray3))))
 
 (define (key txt)
   (let ((text (t txt))
@@ -258,17 +259,16 @@
 
     (current-slide-assembler old-slide-assembler)))
 
-(define (show-script content title)
-  (let ([script
-	   (vr-append
-	    (colorize (t title) vsc-orange)
-	    (with-font inconsolata
-		       (apply vl-append (map t (string-split content "\n")))))])
-      (lt-superimpose
-       (filled-rectangle (+ (* 2 margin) (pict-width script))
-			 (+ (* 2 margin) (pict-height script))
-			 #:draw-border? #f #:color vsc-darkgray)
-       (inset (colorize script vsc-bright) margin))))
+(define (show-script content
+		     #:title [title #f] #:width [width 0])
+  (let* ([script (with-font
+		  inconsolata
+		  (apply vl-append (map t (string-split content "\n"))))]
+	 [text (if title
+		   (vr-append
+		    (colorize (t title) vsc-orange) script)
+		   script)])
+    (prompt (inset text margin))))
 
 (module+ test
   (require rackunit))
