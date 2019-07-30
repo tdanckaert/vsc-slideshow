@@ -6,6 +6,7 @@
 	 indent
 	 prompt
 	 key
+	 keyseq
 	 show-script
 	 inconsolata
 	 vsc-gray
@@ -190,6 +191,9 @@
 			       (+ (* 2 margin) (pict-height text))
 			       #:color vsc-orange
 			       #:draw-border? #f))))
+
+(define (keyseq . keys)
+  (apply hc-append (add-between (map key keys ) (t "+"))))
 
 (define (indent s . rest)
   (let ((old-para-width (current-para-width)))
