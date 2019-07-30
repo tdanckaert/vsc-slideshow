@@ -260,9 +260,9 @@
     (current-slide-assembler old-slide-assembler)))
 
 (define (show-script content
-		     #:title [title #f] #:width [width 0])
-  (let* ([script (with-font
-		  inconsolata
+		     #:title [title #f] #:width [width 0]
+		     #:font [font inconsolata])
+  (let* ([script (with-font font
 		  (apply vl-append (map t (string-split content "\n"))))]
 	 [text (if title
 		   (vr-append
