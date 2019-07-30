@@ -10,7 +10,9 @@
 	 show-script
 	 inconsolata
 	 vsc-gray
-	 vsc-orange)
+	 vsc-darkgray
+	 vsc-orange
+	 vsc-bright)
 
 (define-runtime-path logofile "lion_logo.svg")
 
