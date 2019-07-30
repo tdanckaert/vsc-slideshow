@@ -168,7 +168,9 @@
      (- margin))))
 
 (define (prompt . txt)
-  (let ((text (with-font inconsolata (para #:fill? #f txt)))
+  (let ((text (with-font inconsolata (para #:fill? #f
+					   #:decode? #f
+					   txt)))
 	(margin 2))
     (pin-under
      (inset (colorize text vsc-slate) margin 0)
