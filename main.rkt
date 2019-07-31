@@ -1,9 +1,10 @@
 #lang slideshow
 
-(require pict rsvg slideshow/text racket/draw racket/runtime-path)
+(require pict rsvg slideshow/text racket/draw racket/runtime-path racket/match)
 
 (provide title-slide
 	 indent
+	 highlight
 	 prompt
 	 key
 	 keyseq
@@ -169,6 +170,27 @@
       (inset vsc-lion 0 30 0 0))
 
      (- margin))))
+
+(define (list-join l sep)
+  (if (null? l)
+      l
+      (reverse
+       (let loop ((newlist (list (car l)))
+		  (rest (cdr l)))
+	 (if (null? rest)
+	     newlist
+	     (loop (cons (car rest)
+			 (cons sep newlist)) (cdr rest)))))))
+
+(define (highlight . args)
+  (match args
+    [(list x) (with-font inconsolata (colorize (bt x) vsc-orange))]
+    [(list element txt)
+     (with-font inconsolata
+		(apply hc-append
+		       (list-join
+			(map t (string-split txt element))
+			(colorize (bt element) vsc-orange))))]))
 
 (define (prompt . txt)
   (let ((text (with-font inconsolata (para #:fill? #f
