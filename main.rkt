@@ -185,12 +185,22 @@
 (define (highlight . args)
   (match args
     [(list x) (with-font inconsolata (colorize (bt x) vsc-orange))]
-    [(list element txt)
+    [(list pattern txt)
      (with-font inconsolata
 		(apply hc-append
-		       (list-join
-			(map t (string-split txt element))
-			(colorize (bt element) vsc-orange))))]))
+		       (let genlist ([matches
+				      (regexp-match-positions* pattern txt)]
+				     [offset 0])
+			 (if (null? matches)
+			     (list (t (substring txt offset)))
+			     (let* ([position (car matches)]
+				    [rest (cdr matches)]
+				    [start (car position)]
+				    [stop (cdr position)]
+				    [matched (substring txt start stop)])
+			       (cons (t (substring txt offset start))
+				     (cons (colorize (bt matched) vsc-orange)
+					   (genlist rest stop))))))))]))
 
 (define (prompt . txt)
   (let ((text (with-font inconsolata (para #:fill? #f
